@@ -154,3 +154,5 @@ cython_debug/
 download/
 .webm
 *.webm
+*.mp4
+*.3gpp

@@ -1,25 +1,29 @@
 from re import T
 from tkinter import *
-import asyncio
+from tkinter import ttk
+
+def sel():
+   selection = "You selected the option " + str(var.get())
+   label.config(text = selection)
 root = Tk()
 root.title('root')
 root.configure(background='black')
 
-def onClick():
-    name = txt.get()
-    print(name)
-    wa = Tk()
-    wa.title('walalaru')
-    wa.geometry('500x500')
-    wa.configure(background='blue')
-    wa.mainloop()
+var = IntVar()
+R1 = Radiobutton(root, text="Option 1", variable=var, value=1,
+                  command=sel)
+R1.pack( anchor = W )
 
-txt = Entry(root)
-txt.grid(row=0, column=0)
-btn = Button(root, text='OK', command=onClick)
-btn.grid(row=0, column=1)
-frame = Frame(root)
-frame.grid(row=1, column=0)
+R2 = Radiobutton(root, text="Option 2", variable=var, value=2,
+                  command=sel)
+R2.pack( anchor = W )
+
+R3 = Radiobutton(root, text="Option 3", variable=var, value=3,
+                  command=sel)
+R3.pack( anchor = W)
+
+label = Label(root)
+label.pack()
 
 root.mainloop()
 

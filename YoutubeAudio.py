@@ -1,10 +1,10 @@
 from pytube import YouTube
 from pytube import Channel
-import ffmpeg
 import tkinter
-import os
+from tkinter.ttk import *
 
 root = tkinter.Tk()
+
 
 def AudioClick():
     lbl2.config(text="Audio Downloading...")
@@ -46,20 +46,13 @@ def VideoClick():
     print("Download Complete")
 
     
-
-root.title("Youtube Audio Downloader")
+root.title("Youtube Downloader")
 root.configure(background='#f2f2f2')
-lbl = tkinter.Label(root, text="URL", font=("Arial Bold", 20))
-lbl.grid(column=0, row=0)
-txt = tkinter.Entry(root, width=50, font=("Arial Bold", 20))
-txt.grid(column=1, row=0)
-btn = tkinter.Button(root, text="Audio", font=("Arial Bold", 20), command=AudioClick)
-btn.grid(column=2, row=0)
-btn2 = tkinter.Button(root, text="Video", font=("Arial Bold", 20), command=VideoClick)
-btn2.grid(column=3, row=0)
-btn3 = tkinter.Button(root, text='Channel', font=("Arial Bold", 20), command=chClick)
-btn3.grid(column=4, row=0)
-lbl2 = tkinter.Label(root, text="Ready", font=("Arial Bold", 20))
-lbl2.grid(column=0, row=1)
+lbl = tkinter.Label(root, text="URL", font=("Arial Bold", 20)).grid(row=0, column=2)
+txt = tkinter.Entry(root, width=50, font=("Arial Bold", 20)).grid(column=0, row=0)
+btn = tkinter.Button(root, text="Audio", font=("Arial Bold", 20), background='#818D92',command=AudioClick).grid(row=1, column=1)
+btn2 = tkinter.Button(root, text="Video", font=("Arial Bold", 20), background='#818D92',command=VideoClick).grid(row=1, column=2)
+btn3 = tkinter.Button(root, text='Channel', font=("Arial Bold", 20), background='#818D92', command=chClick).grid(row=1, column=3)
+lbl2 = tkinter.Label(root, text="Ready", font=("Arial Bold", 20)).grid(row=1, column=0)
 
 root.mainloop()

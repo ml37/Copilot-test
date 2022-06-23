@@ -152,6 +152,9 @@ cython_debug/
 #.idea/
 .mp4
 download/
+Video/
+Audio/
+channel/
 .webm
 *.webm
 *.mp4

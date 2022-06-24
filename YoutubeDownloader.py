@@ -8,6 +8,10 @@ from re import T
 import tkinter
 from tkinter import *
 from tkinter import ttk
+from pytube.cli import on_progress
+import sys
+fuchsia = '\033[38;2;255;00;255m'   #  color as hex #FF00FF
+reset_color = '\033[39m'
 #Save Startposition in 'cd'
 cd =os.getcwd()
 print(f'start position {cd}')
@@ -26,12 +30,20 @@ else:
     os.mkdir('channel')
 #Set tkinter.Tk() as root
 root = tkinter.Tk()
+def progress_function(chunk, file_handle, bytes_remaining):
+    global filesize
+    current = ((filesize - bytes_remaining)/filesize)
+    percent = ('{0:.1f}').format(current*100)
+    progress = int(50*current)
+    status = '█' * progress + '-' * (50 - progress)
+    sys.stdout.write(' ↳ |{bar}| {percent}%\r'.format(bar=status, percent=percent))
+    sys.stdout.flush()
 #Single, Audio only download
 def AudioClick():
     print("Audio Download Button Clicked") 
     urlInput = txt.get()
     print(urlInput)
-    yt = YouTube(urlInput)
+    yt = YouTube(urlInput, on_progress_callback = progress_function)
     stream = yt.streams.filter(only_audio=True).get_audio_only()
     stream.download()
     shutil.move(f'{yt.title}.mp4', f'Audio/{yt.title}.mp4')
@@ -41,7 +53,7 @@ def VideoClick():
     print("Video Download Button Clicked")
     urlInput = txt.get()
     print(urlInput)
-    yt = YouTube(urlInput)
+    yt = YouTube(urlInput, on_progress_callback = progress_function)
     stream = yt.streams.filter(progressive=True).order_by('resolution').desc().first()
     stream.download()
     shutil.move(f'{yt.title}.mp4', f'Video/{yt.title}.mp4')
@@ -155,7 +167,7 @@ lbl.pack(side="right")
 txt = tkinter.Entry(frame1, width=50, font=("Arial Bold", 16))
 txt.pack(side="right")
 download = tkinter.Button(frame1, text="Download", command=DownloadClick, font=("Arial Bold", 16))
-download.pack(side="right")
+download.pack(side="left")
 #####
 R1 = tkinter.Radiobutton(frame2, text="Single", variable=var, value=1, command=selSingle)
 R1.pack(side=LEFT)
